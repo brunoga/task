@@ -10,7 +10,13 @@ import "fmt"
 type Task interface {
 	fmt.Stringer
 
+	// Execute executes the task and all its dependencies. If the task has
+	// already been executed, this is a no-op.
 	Execute()
+
+	// Wait waits for the task to complete and returns the error returned by
+	// the task's function. If the task has already been executed, this
+	// returns immediately with the error returned by the previous execution.
 	Wait() error
 }
 
